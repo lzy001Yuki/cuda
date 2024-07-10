@@ -37,7 +37,7 @@ __global__ void mySgemm2D(float *a, float *b, float *c, const int M,
   __shared__ float shareA[16][16];
   __shared__ float shareB[16][16];
 
-  float Val = 0.0
+  float Val = 0.0;
 
   for (int i = 0; i < (K + 16 - 1) / 16; i++) {
       sharedA[threadIdx.y][threadIdx.x] = a[n * K + i * 16 + threadIdx.x];
