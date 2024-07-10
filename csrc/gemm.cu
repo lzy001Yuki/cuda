@@ -30,17 +30,25 @@ void naiveSgemm(float *a, float *b, float *c, const int M, const int N,
  * @brief A naive implementation of matrix multiplication on GPU.
  * Perform C = A * B, where A is M x K, B is K x N, and C is M x N.
  */
-__global__ void naiveSgemm2D(float *a, float *b, float *c, const int M,
+__global__ void mySgemm2D(float *a, float *b, float *c, const int M,
                              const int N, const int K) {
   int m = blockIdx.x * blockDim.x + threadIdx.x; // Row index
   int n = blockIdx.y * blockDim.y + threadIdx.y; // Column index
-  if (m < M && n < N) {
-    float sum = 0.0;
-    for (int k = 0; k < K; ++k) {
-      sum += a[m * K + k] * b[k * N + n];
-    }
-    c[m * N + n] = sum;
+  __shared__ float shareA[16][16];
+  __shared__ float shareB[16][16];
+
+  float Val = 0.0
+
+  for (int i = 0; i < (K + 16 - 1) / 16; i++) {
+      sharedA[threadIdx.y][threadIdx.x] = a[n * K + i * 16 + threadIdx.x];
+      sharedB[threadIdx.y][threadIdx.x] = b[m + (threadIdx.y + i * 16) * K];
+      __syncthreads();
+      for (int k = 0; k < 16; k++) {
+          Val += sharedA[threadIdx.y][k] * sharedB[k][threadIdx.x];
+      }
+      __syncthreads();
   }
+  c[n * K + m] = Val;
 }
 
 /**
@@ -50,7 +58,7 @@ void launchSgemm2D(float *a, float *b, float *c, const int M, const int N,
                    const int K) {
   dim3 block(16, 16); // 256 threads per block (16 * 16 = 256)
   dim3 grid((M + block.x - 1) / block.x, (N + block.y - 1) / block.y);
-  naiveSgemm2D<<<grid, block>>>(a, b, c, M, N, K);
+  mySgemm2D<<<grid, block>>>(a, b, c, M, N, K);
 }
 
 void initialize(float *a, float *b, float *c, const int M, const int N,
