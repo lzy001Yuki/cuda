@@ -39,7 +39,7 @@ bool compare(float *a, float *b, const int N) {
 
 __global__ void vectorAddGPU(float *a, float *b, float *c, const int N) {
     // Implement your vector add kernel here
-    index = blockDim.x * blockIdx.x + threadIdx.x;
+    int index = blockDim.x * blockIdx.x + threadIdx.x;
     if (index < N) {
         c[index] = a[index] + b[index];
     }
