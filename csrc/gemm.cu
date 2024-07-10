@@ -34,8 +34,8 @@ __global__ void mySgemm2D(float *a, float *b, float *c, const int M,
                              const int N, const int K) {
   int m = blockIdx.x * blockDim.x + threadIdx.x; // Row index
   int n = blockIdx.y * blockDim.y + threadIdx.y; // Column index
-  __shared__ float shareA[16][16];
-  __shared__ float shareB[16][16];
+  __shared__ float sharedA[16][16];
+  __shared__ float sharedB[16][16];
 
   float Val = 0.0;
 
