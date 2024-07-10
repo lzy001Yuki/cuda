@@ -65,7 +65,7 @@ int main() {
     // allocate memory for GPU
     float *a_gpu, *b_gpu, *c_gpu;
     cudaMalloc(&a_gpu, sizeof(float) * MAXN);
-    cudaMalloc(&b_qpu, sizeof(float) * MAXN);
+    cudaMalloc(&b_gpu, sizeof(float) * MAXN);
     cudaMalloc(&c_gpu, sizeof(float) * MAXN);
 
     // copy
