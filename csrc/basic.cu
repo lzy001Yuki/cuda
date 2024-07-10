@@ -69,9 +69,9 @@ int main() {
     cudaMalloc(c_gpu, sizeof(float) * MAXN);
 
     // copy
-    cudaMemcpy(a_gpu, a, MAX * sizeof(float), cudaMemcpyHostToDevice);
-    cudaMemcpy(b_gpu, b, MAX * sizeof(float), cudaMemcpyHostToDevice);
-    cudaMemcpy(c_gpu, c, MAX * sizeof(float), cudaMemcpyHostToDevice);
+    cudaMemcpy(&a_gpu, a, MAXN * sizeof(float), cudaMemcpyHostToDevice);
+    cudaMemcpy(&b_gpu, b, MAXN * sizeof(float), cudaMemcpyHostToDevice);
+    cudaMemcpy(&c_gpu, c, MAXN * sizeof(float), cudaMemcpyHostToDevice);
 
     // define size of block and grid
     int threadSize = 256;
