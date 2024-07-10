@@ -64,14 +64,14 @@ int main() {
     // MAXN --size of the vector
     // allocate memory for GPU
     float *a_gpu, *b_gpu, *c_gpu;
-    cudaMalloc(a_gpu, sizeof(float) * MAXN);
-    cudaMalloc(b_qpu, sizeof(float) * MAXN);
-    cudaMalloc(c_gpu, sizeof(float) * MAXN);
+    cudaMalloc(&a_gpu, sizeof(float) * MAXN);
+    cudaMalloc(&b_qpu, sizeof(float) * MAXN);
+    cudaMalloc(&c_gpu, sizeof(float) * MAXN);
 
     // copy
-    cudaMemcpy(&a_gpu, a, MAXN * sizeof(float), cudaMemcpyHostToDevice);
-    cudaMemcpy(&b_gpu, b, MAXN * sizeof(float), cudaMemcpyHostToDevice);
-    cudaMemcpy(&c_gpu, c, MAXN * sizeof(float), cudaMemcpyHostToDevice);
+    cudaMemcpy(a_gpu, a, MAXN * sizeof(float), cudaMemcpyHostToDevice);
+    cudaMemcpy(b_gpu, b, MAXN * sizeof(float), cudaMemcpyHostToDevice);
+    cudaMemcpy(c_gpu, c, MAXN * sizeof(float), cudaMemcpyHostToDevice);
 
     // define size of block and grid
     int threadSize = 256;
