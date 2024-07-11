@@ -98,11 +98,13 @@ int main() {
   initialize(a, b, c, MAXN, MAXN, MAXN);
 
   // ********** CPU **********
+  /*
   auto start = std::chrono::high_resolution_clock::now();
   naiveSgemm(a, b, c, MAXN, MAXN, MAXN);
   auto end = std::chrono::high_resolution_clock::now();
   std::chrono::duration<double> elapsed = end - start;
   printf("CPU time: %.3fs\n", elapsed.count());
+   */
 
   float *d_a, *d_b, *d_c;
   cudaMalloc(&d_a, MAXN * MAXN * sizeof(float));
