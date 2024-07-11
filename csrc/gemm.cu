@@ -7,7 +7,7 @@
 
 // You may increase this value to test larger matrices
 // But it will be slow on CPU
-constexpr int MAXN = 4096;
+constexpr int MAXN = 8192;
 
 /**
  * @brief A naive implementation of matrix multiplication on CPU.
